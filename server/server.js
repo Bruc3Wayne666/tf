@@ -13,16 +13,20 @@ app.use(cookieParser())
 
 app.use('/api', router)
 
+const serve = () => {
+    mongoose.connect(process.env.MONGODB_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        },
+        err => {
+            if (err) throw err
+            console.log('Connected to MongoDB')
 
-mongoose.connect(process.env.MONGODB_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    },
-    err => {
-        if (err) throw err
-        console.log('Connected to MongoDB')
-    })
+            app.listen(process.env.PORT, () => {
+                console.log(`Server has started on port ${process.env.PORT}`)
+            })
+        })
+}
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server has started on port ${process.env.PORT}`)
-})
+serve()
+

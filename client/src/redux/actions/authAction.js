@@ -20,3 +20,22 @@ export const login = data => async dispatch => {
         dispatch({type: 'NOTIFY_ACTION', payload: {error: err.response.data.msg}})
     }
 }
+
+export const refreshToken = () => async dispatch => {
+    const firstLogin = localStorage.getItem('firstLogin')
+    if (firstLogin) {
+        dispatch({type: 'NOTIFY_ACTION', payload: {loading: true}})
+        try {
+            const res = await postDataAPI('auth/upd_token')
+            dispatch({
+                type: 'AUTH_ACTION', payload: {
+                    token: res.accessToken,
+                    user: res.user
+                }
+            })
+            dispatch({type: 'NOTIFY_ACTION', payload: {}})
+        } catch (err) {
+            dispatch({type: 'NOTIFY_ACTION', payload: {error: err.response.data.msg}})
+        }
+    }
+}

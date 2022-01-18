@@ -1,0 +1,26 @@
+.alert {
+    top: 6px;
+    right: 6px;
+    z-index: 50;
+    min-width: 200px;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+
+.alertHeader {
+    display: flex;
+    justify-content: space-between;
+ }
+
+.alertHeader button {
+
+}
+
+/*.alertHeader button {*/
+/*    border: none;*/
+/*}*/
+
+.alertBody {
+
+}

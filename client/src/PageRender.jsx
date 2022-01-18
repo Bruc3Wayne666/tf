@@ -19,7 +19,7 @@ const PageRender = () => {
     page = page[0].toUpperCase() + page.slice(1)
     let pageName = id ? `${page}/${id}` : `${page}`
 
-    console.log(pageName)
+    // console.log(pageName)
 
     return selectPage(pageName)
 };

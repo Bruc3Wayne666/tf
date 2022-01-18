@@ -28,11 +28,16 @@
     position: relative;
 }
 
-.password small {
+.password span {
     position: absolute;
     top: 50%;
     right: 6px;
     transform: translateY(-50%);
     cursor: pointer;
     opacity: 0.5;
+}
+
+.passwordOptions {
+    width: 20px;
+    height: 20px;
 }

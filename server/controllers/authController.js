@@ -111,6 +111,13 @@ class authController {
                 if (!user) return res.status(400).json({msg: 'This user doesn\'t exist'})
 
                 const accessToken = createAccessToken({id: result.id})
+                const updateToken = createUpdateToken({id: result.id})
+
+                res.cookie('updatetoken', updateToken, {
+                    httpOnly: true,
+                    path: '/api/auth/upd_token',
+                    maxAge: 60 * 60 * 24 * 30 * 1000
+                })
 
                 res.json({accessToken})
             })
