@@ -4,10 +4,13 @@ import {Link, useNavigate} from "react-router-dom";
 import classes from "../Login/Login.module.css";
 import hidePassword from "../../assets/hidePassword.svg";
 import showPassword from "../../assets/showPassword.svg";
-import {login} from "../../redux/actions/authAction";
+import male from "../../assets/male.svg";
+import female from "../../assets/female.svg";
+import {register} from "../../redux/actions/authAction";
+
 
 const Register = () => {
-    const {authReducer: auth} = useSelector(state => state)
+    const {authReducer: auth, notifyReducer: notify} = useSelector(state => state)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -16,35 +19,26 @@ const Register = () => {
         username: '',
         email: '',
         password: '',
+        confirmPassword: '',
         gender: 'male'
     })
-    const [confirmPassword, setConfirmPassword] = useState('')
-    const [wrongPassword, setWrongPassword] = useState(true)
-    const [touchedConfirm, setTouched] = useState(false)
-    const {fullName, username, email, password, gender} = userCredentials
+    const {fullName, username, email, password, confirmPassword, gender} = userCredentials
     const [typePassword, setTypePassword] = useState(false)
+    const [typeConfirmPassword, setTypeConfirmPassword] = useState(false)
 
     const handleInputChange = e => {
         const {name, value} = e.target
         setUserCredentials({...userCredentials, [name]: value})
     }
 
-    const handleConfirmChange = e => {
-        const {value} = e.target
-        setConfirmPassword(value)
-        if (touchedConfirm && value === password) setWrongPassword(false)
-        else setWrongPassword(true)
-    }
-
     const handleSubmit = e => {
         e.preventDefault()
-        if (!wrongPassword) dispatch(login(userCredentials))
+        dispatch(register(userCredentials))
+        // if (validate({...userCredentials})) dispatch(register(userCredentials))
     }
 
     useEffect(() => {
-        if (auth.token) {
-            navigate('/')
-        }
+        if (auth.token) navigate('/')
     }, [auth.token, navigate])
 
     return (
@@ -58,6 +52,7 @@ const Register = () => {
                     <label htmlFor="email">Email</label>
                     <input type="email" className="form-control shadow-none" id="email" aria-describedby="emailHelp"
                            placeholder="Enter" name={'email'} onChange={handleInputChange} value={email}/>
+                    <small>{notify.email ? notify.email : ''}</small>
                     <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone
                         else.</small>
                 </div>
@@ -65,11 +60,13 @@ const Register = () => {
                     <label htmlFor="fullName">Your name</label>
                     <input type="text" className="form-control shadow-none" id="fullName"
                            placeholder="Enter" name={'fullName'} onChange={handleInputChange} value={fullName}/>
+                    <small>{notify.fullName ? notify.fullName : ''}</small>
                 </div>
                 <div className="form-group mb-3">
                     <label htmlFor="username">Nickname</label>
                     <input type="text" className="form-control shadow-none" id="username"
-                           placeholder="Enter" name={'username'} onChange={handleInputChange} value={username}/>
+                           placeholder="Enter" name={'username'} onChange={handleInputChange} value={username.toLowerCase().replace(/ /g, '_')}/>
+                    <small>{notify.username ? notify.username : ''}</small>
                     <small id="emailHelp" className="form-text text-muted">It automatically will begin with '@'.</small>
                 </div>
                 <div className="form-group mb-3">
@@ -83,22 +80,33 @@ const Register = () => {
                             ? <img className={classes.passwordOptions} src={hidePassword} alt="Hide"/>
                             : <img className={classes.passwordOptions} src={showPassword} alt="show"/>}</span>
                     </div>
+                    <small>{notify.password ? notify.password : ''}</small>
                 </div>
                 <div className="form-group mb-4">
                     <label htmlFor="confirmPassword">Confirm password</label>
                     <div className={classes.password}>
-                        <input type={typePassword ? 'text' : 'password'}
-                               className={`form-control shadow-none ${touchedConfirm && wrongPassword ? 'border-3 border-danger' : 'border-3 border-success'}`}
+                        <input type={typeConfirmPassword ? 'text' : 'password'}
+                               className={`form-control shadow-none`}
                                id="confirmPassword" placeholder="Password"
                                name={'confirmPassword'}
-                               onFocus={() => setTouched(true)}
-                               onChange={handleConfirmChange} value={confirmPassword}/>
-                        <span onClick={() => setTypePassword(!typePassword)}>{typePassword
+                               onChange={handleInputChange} value={confirmPassword}/>
+                        <span onClick={() => setTypeConfirmPassword(!typeConfirmPassword)}>{typeConfirmPassword
                             ? <img className={classes.passwordOptions} src={hidePassword} alt="Hide"/>
                             : <img className={classes.passwordOptions} src={showPassword} alt="show"/>}
                         </span>
                     </div>
-                    {touchedConfirm && wrongPassword && <small id="confirmPassword" className="form-text text-muted">Please type correct password</small>}
+                    <small>{notify.confirmPassword ? notify.confirmPassword : ''}</small>
+                </div>
+                <div className={'d-flex flex-row justify-content-around mx-0 mb-3'}>
+                    <h4>You are:</h4>
+                    <label htmlFor="male" className={'d-flex align-items-center'}>
+                        <img width={50} src={male} alt="Male"/> <input type="radio" id="male" name="gender" value="male" defaultChecked onChange={handleInputChange}/>
+                        <span>&nbsp;Male</span>
+                    </label>
+                    <label htmlFor="female" className={'d-flex align-items-center'}>
+                        <img width={50} src={female} alt="Female"/> <input type="radio" id="female" name="gender" value="female" onChange={handleInputChange}/>
+                        <span>&nbsp;Female</span>
+                    </label>
                 </div>
                 <button type="submit" className="btn btn-success w-100" disabled={email && password ? false : true}>
                     Sign up

@@ -1,20 +1,25 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from "./Login.module.css"
 import {Button, Form} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {Link, useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import {login} from "../../redux/actions/authAction";
 import Notify from "../../components/Notify/Notify";
 import showPassword from "../../assets/showPassword.svg"
 import hidePassword from "../../assets/hidePassword.svg"
 
 const Login = () => {
+    const {authReducer: auth} = useSelector(state => state)
+    const navigate = useNavigate()
     const [userCredentials, setUserCredentials] = useState({email: '', password: ''})
     const {email, password} = userCredentials
     const dispatch = useDispatch()
 
     const [typePassword, setTypePassword] = useState(false)
 
+useEffect(() => {
+    if (auth.token) navigate('/')
+}, [auth.token, navigate])
 
     const handleInputChange = e => {
         const {name, value} = e.target
