@@ -4,7 +4,7 @@ import {Button, Form} from "react-bootstrap";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {login} from "../../redux/actions/authAction";
-import Notify from "../../components/Notify/Notify";
+import Alert from "../../components/Alert/Alert";
 import showPassword from "../../assets/showPassword.svg"
 import hidePassword from "../../assets/hidePassword.svg"
 
@@ -17,9 +17,9 @@ const Login = () => {
 
     const [typePassword, setTypePassword] = useState(false)
 
-useEffect(() => {
-    if (auth.token) navigate('/')
-}, [auth.token, navigate])
+    useEffect(() => {
+        if (auth.token) navigate('/')
+    }, [auth.token, navigate])
 
     const handleInputChange = e => {
         const {name, value} = e.target
@@ -45,7 +45,8 @@ useEffect(() => {
                 <div className="form-group mb-3">
                     <label htmlFor="password">Password</label>
                     <div className={classes.password}>
-                        <input type={typePassword ? 'text' : 'password'} className="form-control shadow-none" id="password" placeholder="Password"
+                        <input type={typePassword ? 'text' : 'password'} className="form-control shadow-none"
+                               id="password" placeholder="Password"
                                name={'password'}
                                onChange={handleInputChange} value={password}/>
                         <span onClick={() => setTypePassword(!typePassword)}>{typePassword
@@ -57,7 +58,8 @@ useEffect(() => {
                     in
                 </button>
 
-                <p className='text-center my-3'>Don't have an account? <Link style={{textDecoration: 'none'}} to={'/register'}>Sign Up now!</Link></p>
+                <p className='text-center my-3'>Don't have an account? <Link style={{textDecoration: 'none'}}
+                                                                             to={'/register'}>Sign Up now!</Link></p>
             </form>
         </div>
     );

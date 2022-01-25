@@ -1,7 +1,7 @@
 import React from 'react';
-import classes from "./Alert.module.css";
+import classes from "./Toast.module.css";
 
-const Alert = ({msg, handle, color}) => {
+const Toast = ({msg, handle, color}) => {
     return (
         <div className={`position-fixed ${classes.alert} text-light ${color}`}>
             <div className={`${classes.alertHeader} text-light ${color}`}>
@@ -20,4 +20,4 @@ const Alert = ({msg, handle, color}) => {
     );
 };
 
-export default Alert;
+export default Toast;

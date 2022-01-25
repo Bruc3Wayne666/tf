@@ -1,14 +1,14 @@
 import {TYPES} from "../actions/types";
 
-const initialState = {}
+const initialState = false
 
-const authReducer = (state = initialState, action) => {
+const themeReducer = (state = initialState, action) => {
     switch (action.type) {
-        case TYPES.AUTH_ACTION:
+        case TYPES.THEME_ACTION:
             return action.payload
         default:
             return state
     }
 }
 
-export default authReducer
+export default themeReducer

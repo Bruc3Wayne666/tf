@@ -113,7 +113,7 @@ const Register = () => {
                 </button>
 
                 <p className='text-center my-3'>Already have an account? <Link style={{textDecoration: 'none'}}
-                                                                               to={'/login'}>Sign in!</Link></p>
+                                                                               to={'/'}>Sign in!</Link></p>
             </form>
         </div>
     );
