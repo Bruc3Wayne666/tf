@@ -1,16 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import classes from "./Login.module.css"
-import {Button, Form} from "react-bootstrap";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {login} from "../../redux/actions/authAction";
-import Alert from "../../components/Alert/Alert";
 import showPassword from "../../assets/showPassword.svg"
 import hidePassword from "../../assets/hidePassword.svg"
 
 const Login = () => {
     const {authReducer: auth} = useSelector(state => state)
-    const navigate = useNavigate()
+    const history = useHistory()
     const [userCredentials, setUserCredentials] = useState({email: '', password: ''})
     const {email, password} = userCredentials
     const dispatch = useDispatch()
@@ -18,8 +16,8 @@ const Login = () => {
     const [typePassword, setTypePassword] = useState(false)
 
     useEffect(() => {
-        if (auth.token) navigate('/')
-    }, [auth.token, navigate])
+        if (auth.token) history.push('/')
+    }, [auth.token, history])
 
     const handleInputChange = e => {
         const {name, value} = e.target

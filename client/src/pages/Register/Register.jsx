@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useHistory,} from "react-router-dom";
 import classes from "../Login/Login.module.css";
 import hidePassword from "../../assets/hidePassword.svg";
 import showPassword from "../../assets/showPassword.svg";
@@ -12,7 +12,7 @@ import {register} from "../../redux/actions/authAction";
 const Register = () => {
     const {authReducer: auth, notifyReducer: notify} = useSelector(state => state)
     const dispatch = useDispatch()
-    const navigate = useNavigate()
+    const history = useHistory()
 
     const [userCredentials, setUserCredentials] = useState({
         fullName: '',
@@ -38,8 +38,8 @@ const Register = () => {
     }
 
     useEffect(() => {
-        if (auth.token) navigate('/')
-    }, [auth.token, navigate])
+        if (auth.token) history.push('/')
+    }, [auth.token, history])
 
     return (
         <div className={classes.authPage}>
