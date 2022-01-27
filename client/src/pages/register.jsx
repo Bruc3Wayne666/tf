@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useHistory,} from "react-router-dom";
-import classes from "../Login/Login.module.css";
-import hidePassword from "../../assets/hidePassword.svg";
-import showPassword from "../../assets/showPassword.svg";
-import male from "../../assets/male.svg";
-import female from "../../assets/female.svg";
-import {register} from "../../redux/actions/authAction";
+import classes from "../styles/Login.module.css";
+import hidePassword from "../assets/hidePassword.svg";
+import showPassword from "../assets/showPassword.svg";
+import male from "../assets/male.svg";
+import female from "../assets/female.svg";
+import {register} from "../redux/actions/authAction";
 
 
 const Register = () => {
@@ -46,7 +46,7 @@ const Register = () => {
             <form onSubmit={handleSubmit}>
                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                     <h3 className="text-center">Welcome to TalkF!eld</h3>
-                    <img width={76} src={require("../../assets/welcome.gif")} alt=""/>
+                    <img width={76} src={require("../assets/welcome.gif")} alt=""/>
                 </div>
                 <div className="form-group mb-3">
                     <label htmlFor="email">Email</label>

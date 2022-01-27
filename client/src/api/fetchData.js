@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 export const getDataAPI = async (url, token) => {
-    const {data} = await axios.get(`api/${url}`, {
+    const {data} = await axios.get(`/api/${url}`, {
         headers: {
             Authorization: token
         }
@@ -12,7 +12,7 @@ export const getDataAPI = async (url, token) => {
 }
 
 export const postDataAPI = async (url, postData, token) => {
-    const {data} = await axios.post(`api/${url}`, postData, {
+    const {data} = await axios.post(`/api/${url}`, postData, {
         headers: {
             Authorization: token
         }
@@ -22,7 +22,7 @@ export const postDataAPI = async (url, postData, token) => {
 }
 
 export const putDataAPI = async (url, putData, token) => {
-    const {data} = await axios.put(`api/${url}`, putData, {
+    const {data} = await axios.put(`/api/${url}`, putData, {
         headers: {
             Authorization: token
         }
@@ -32,7 +32,7 @@ export const putDataAPI = async (url, putData, token) => {
 }
 
 export const patchDataAPI = async (url, patchData, token) => {
-    const {data} = await axios.patch(`api/${url}`, patchData, {
+    const {data} = await axios.patch(`/api/${url}`, patchData, {
         headers: {
             Authorization: token
         }
@@ -42,7 +42,7 @@ export const patchDataAPI = async (url, patchData, token) => {
 }
 
 export const deleteDataAPI = async (url, deleteData, token) => {
-    const {data} = await axios.delete(`api/${url}`, {
+    const {data} = await axios.delete(`/api/${url}`, {
         headers: {
             Authorization: token
         }

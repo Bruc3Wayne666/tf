@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 
 
 const selectPage = pageName => {
-    const component = () => require(`../pages/${pageName}/${pageName}`).default
+    const component = () => require(`../pages/${pageName}`).default
     try {
         return React.createElement(component())
     } catch (err) {
@@ -19,10 +19,9 @@ const PageRender = () => {
     const {authReducer: auth} = useSelector(state => state)
 
     let pageName = ''
-    page = page[0].toUpperCase() + page.slice(1)
 
     if (auth.token){
-        pageName = id ? `${page}/${id}` : `${page}`
+        pageName = id ? `${page}/[id]` : `${page}`
     }
 
     // console.log(pageName)

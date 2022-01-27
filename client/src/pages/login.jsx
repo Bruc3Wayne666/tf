@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import classes from "./Login.module.css"
+import classes from "../styles/Login.module.css"
 import {Link, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {login} from "../../redux/actions/authAction";
-import showPassword from "../../assets/showPassword.svg"
-import hidePassword from "../../assets/hidePassword.svg"
+import {login} from "../redux/actions/authAction";
+import showPassword from "../assets/showPassword.svg"
+import hidePassword from "../assets/hidePassword.svg"
 
 const Login = () => {
     const {authReducer: auth} = useSelector(state => state)

@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {getDataAPI} from "../../api/fetchData";
 import {TYPES} from "../../redux/actions/types";
 import UserCard from "../UserCard/UserCard";
-import {Link} from "react-router-dom";
 import loadingSmall from "../../assets/loadingSmall.svg"
 
 const Search = () => {

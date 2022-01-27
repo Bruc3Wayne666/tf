@@ -1,14 +1,14 @@
 import {BrowserRouter, Route} from "react-router-dom";
 import PageRender from "./customRouter/PageRender";
-import Login from "./pages/Login/Login";
-import Home from "./pages/Home/Home";
+import Login from "./pages/login";
+import Home from "./pages/home";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Alert from "./components/Alert/Alert";
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {refreshToken} from "./redux/actions/authAction";
 import Header from "./components/Header/Header";
-import Register from "./pages/Register/Register";
+import Register from "./pages/register";
 import PrivateRouter from "./customRouter/PrivateRouter";
 
 
