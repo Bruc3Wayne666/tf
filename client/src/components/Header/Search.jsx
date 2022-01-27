@@ -5,6 +5,7 @@ import {getDataAPI} from "../../api/fetchData";
 import {TYPES} from "../../redux/actions/types";
 import UserCard from "../UserCard/UserCard";
 import {Link} from "react-router-dom";
+import loadingSmall from "../../assets/loadingSmall.svg"
 
 const Search = () => {
     const [search, setSearch] = useState('')
@@ -13,18 +14,18 @@ const Search = () => {
     const {authReducer: auth} = useSelector(state => state)
     const dispatch = useDispatch()
 
-    // const handleSubmit = async e => {
-    //     e.preventDefault()
-    //     if (!search) return
-    //     try {
-    //         setLoad(true)
-    //         const res = await getDataAPI(`user/search?username=${search}`, auth.token)
-    //         setUsers(res.users)
-    //         setLoad(false)
-    //     } catch (err) {
-    //         dispatch({type: TYPES.ALERT_ACTION, payload: {error: err.response.data.msg}})
-    //     }
-    // }
+    const handleSubmit = async e => {
+        e.preventDefault()
+        if (!search) return
+        try {
+            setLoad(true)
+            const res = await getDataAPI(`user/search?username=${search}`, auth.token)
+            setUsers(res.users)
+            setLoad(false)
+        } catch (err) {
+            dispatch({type: TYPES.ALERT_ACTION, payload: {error: err.response.data.msg}})
+        }
+    }
 
     useEffect(() => {
         const searchUsers = async () => {
@@ -50,7 +51,7 @@ const Search = () => {
     }
 
     return (
-        <form className={classes.searchForm}>
+        <form className={classes.searchForm} onSubmit={handleSubmit}>
             <input type="text" name={'search'} value={search} id={'search'}
                    title={'Search people'} onChange={e => setSearch(e.target.value.toLowerCase().replace(/ /g, '_'))}/>
             <div className={classes.searchIcon} style={{opacity: search ? 0 : 0.3}}>
@@ -60,18 +61,16 @@ const Search = () => {
             <div className={classes.closeSearch} onClick={handleClose} style={{opacity: users.length === 0 ? 0 : 1}}>
                 &times;
             </div>
-            <button type={'submit'} style={{display: 'none'}}>Search</button>
-            {load && <img className={classes.loading} src={'LoadingIcon'} alt="loading"/>}
+            <button type={'submit'} style={{display: '', border: 1}}>Search</button>
+            {load && <img className={classes.loading} src={loadingSmall} alt="loading"/>}
             <div className={classes.users}>
                 {search && users.map(user => (
-                    <Link to={`profile/${user._id}`}>
-                        <UserCard
-                            key={user._id}
-                            user={user}
-                            border={'border'}
-                            handleClose={handleClose}
-                        />
-                    </Link>
+                    <UserCard
+                        key={user._id}
+                        user={user}
+                        border={'border'}
+                        handleClose={handleClose}
+                    />
                 ))}
             </div>
         </form>

@@ -33,7 +33,7 @@ class authController {
 
             res.cookie('updatetoken', updateToken, {
                 httpOnly: true,
-                path: '/api/auth/upd_token',
+                path: '/api/auth.js/upd_token',
                 maxAge: 60 * 60 * 24 * 30 * 1000
             })
 
@@ -68,7 +68,7 @@ class authController {
 
             res.cookie('updatetoken', updateToken, {
                 httpOnly: true,
-                path: '/api/auth/upd_token',
+                path: '/api/auth.js/upd_token',
                 maxAge: 60 * 60 * 24 * 30 * 1000
             })
 
@@ -88,7 +88,7 @@ class authController {
     async logout(req, res) {
         try {
             res.clearCookie('updatetoken', {
-                path: '/api/auth/upd_token'
+                path: '/api/auth.js/upd_token'
             })
 
             return res.json({msg: 'Signed out'})
@@ -115,11 +115,11 @@ class authController {
 
                 res.cookie('updatetoken', updateToken, {
                     httpOnly: true,
-                    path: '/api/auth/upd_token',
+                    path: '/api/auth.js/upd_token',
                     maxAge: 60 * 60 * 24 * 30 * 1000
                 })
 
-                res.json({accessToken})
+                res.json({accessToken, user})
             })
         } catch (err) {
             res.status(500).json({msg: err.message})
