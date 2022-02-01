@@ -12,7 +12,7 @@ import Register from "./pages/register";
 import PrivateRouter from "./customRouter/PrivateRouter";
 
 
-function App() {
+const App = () => {
     const {authReducer: auth} = useSelector(state => state)
     const dispatch = useDispatch()
 
