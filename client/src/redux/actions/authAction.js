@@ -7,10 +7,9 @@ export const login = createAsyncThunk(
     async (data, {rejectWithValue}) => {
         try {
             const res = await postDataAPI('auth/login', data)
-            localStorage.setItem('firstLogin', 'true')
             return res
         } catch (err) {
-            rejectWithValue({error: err.response.data.msg})
+            return rejectWithValue({error: err.response.data.msg})
         }
     }
 )
@@ -23,10 +22,9 @@ export const register = createAsyncThunk(
                 return rejectWithValue(validate(data).errMessage)
             }
             const res = await postDataAPI('auth/register', data)
-            localStorage.setItem('firstLogin', 'true')
             return res
         } catch (err) {
-            rejectWithValue({error: err.response.data.msg})
+            return rejectWithValue({error: err.response.data.msg})
         }
     }
 )
@@ -35,11 +33,10 @@ export const logout = createAsyncThunk(
     'auth/logout',
     async (_, {rejectWithValue}) => {
         try {
-            localStorage.removeItem('firstLogin')
             await postDataAPI('auth/logout')
             window.location.href = '/'
         } catch (err) {
-            rejectWithValue({error: err.response.data.msg})
+            return rejectWithValue({error: err.response.data.msg})
         }
     }
 )
@@ -53,7 +50,7 @@ export const refreshToken = createAsyncThunk(
                 const res = await postDataAPI('auth/upd_token')
                 return res
             } catch (err) {
-                rejectWithValue({error: err.response.data.msg})
+                return rejectWithValue({error: err.response.data.msg})
             }
         }
     }

@@ -33,11 +33,18 @@ const profileSlice = createSlice({
     reducers: {},
     extraReducers: {
         [getProfileUsers.pending]: (state) => {
-            state.loading = true
+            console.log('start')
+            return {...state, loading: true}
         },
-        [getProfileUsers.fulfilled]: (state, action) => {
-            state.users.push(action.payload.user)
-            state.loading = false
+        [getProfileUsers.fulfilled]: (state, {payload}) => {
+            console.log('end')
+            return {
+                ...state,
+                users: [...state.users, payload.user],
+                loading: false
+            }
+            // state.users.push(action.payload.user)
+            // state.loading = false
         }
     }
 })

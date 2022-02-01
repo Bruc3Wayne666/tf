@@ -67,50 +67,50 @@ const notifySlice = createSlice({
     name: 'alert',
     initialState: {},
     reducers: {
-        alert(state, action) {
-            state = action.payload
+        alert(state) {
+            return {}
         }
     },
     extraReducers: {
         [login.pending]: (state) => {
-            console.log(state)
-            state = {loading: true}
+            return {loading: true}
         },
-        [login.fulfilled]: (state, action) => {
-            console.log(state)
-            console.log(action.payload)
-            state = {success: action.payload.msg}
+        [login.fulfilled]: (state, {payload}) => {
+            return {success: payload.msg}
         },
-        [login.rejected]: (state, action) => {
-            console.log(action.payload)
-            state = action.payload
+        [login.rejected]: (state, {payload}) => {
+            return {payload}
         },
         [register.pending]: (state) => {
-            state = {loading: true}
+            return {loading: true}
         },
-        [register.fulfilled]: (state, action) => {
-            state = {success: action.payload.msg}
+        [register.fulfilled]: (state, {payload}) => {
+            return {success: payload.msg}
         },
-        [register.rejected]: (state, action) => {
-            state = action.payload
+        [register.rejected]: (state, {payload}) => {
+            return {payload}
         },
         [logout.pending]: (state) => {
-            state = {loading: true}
+            localStorage.removeItem('firstLogin')
+            return {loading: true}
         },
-        [logout.rejected]: (state, action) => {
-            state = action.payload
+        [logout.fulfilled]: (state) => {
+            return {loading: false}
+        },
+        [logout.rejected]: (state, {payload}) => {
+            return {payload}
         },
         [refreshToken.pending]: (state) => {
-            state = {loading: true}
+            return {loading: true}
         },
         [refreshToken.fulfilled]: (state) => {
-            state = {}
+            return {loading: false}
         },
-        [refreshToken.rejected]: (state, action) => {
-            state = action.payload
+        [refreshToken.rejected]: (state, {payload}) => {
+            return {payload}
         },
-        [getProfileUsers.rejected]: (state, action) => {
-            state = action.payload
+        [getProfileUsers.rejected]: (state, {payload}) => {
+            return {payload}
         }
     }
 })

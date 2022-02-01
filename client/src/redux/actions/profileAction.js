@@ -32,7 +32,7 @@ export const getProfileUsers = createAsyncThunk(
                 const res = await getDataAPI(`user/${id}`, auth.token)
                 return res
             } catch (err) {
-                rejectWithValue({error: err.response.data.msg})
+                return rejectWithValue({error: err.response.data.msg})
             }
         }
     }

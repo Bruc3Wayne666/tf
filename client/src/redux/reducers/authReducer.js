@@ -21,22 +21,27 @@ const authSlice = createSlice({
     initialState: {},
     reducers: {},
     extraReducers: {
-        [login.fulfilled]: (state, action) => {
-            state = {
-                token: action.payload.accessToken,
-                user: action.payload.user
+        [login.fulfilled]: (state, {payload}) => {
+            localStorage.setItem('firstLogin', 'true')
+            return {
+                ...state,
+                token: payload.accessToken,
+                user: payload.user
             }
         },
-        [register.fulfilled]: (state, action) => {
-            state = {
-                token: action.payload.accessToken,
-                user: action.payload.user
+        [register.fulfilled]: (state, {payload}) => {
+            localStorage.setItem('firstLogin', 'true')
+            return {
+                ...state,
+                token: payload.accessToken,
+                user: payload.user
             }
         },
-        [refreshToken.fulfilled]: (state, action) => {
-            state = {
-                token: action.payload.accessToken,
-                user: action.payload.user
+        [refreshToken.fulfilled]: (state, {payload}) => {
+            return {
+                ...state,
+                token: payload.accessToken,
+                user: payload.user
             }
         }
     }
