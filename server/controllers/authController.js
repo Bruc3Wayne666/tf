@@ -33,7 +33,7 @@ class authController {
 
             res.cookie('updatetoken', updateToken, {
                 httpOnly: true,
-                path: '/api/auth.js/upd_token',
+                path: '/api/auth/upd_token',
                 maxAge: 60 * 60 * 24 * 30 * 1000
             })
 
@@ -68,7 +68,7 @@ class authController {
 
             res.cookie('updatetoken', updateToken, {
                 httpOnly: true,
-                path: '/api/auth.js/upd_token',
+                path: '/api/auth/upd_token',
                 maxAge: 60 * 60 * 24 * 30 * 1000
             })
 
@@ -88,7 +88,7 @@ class authController {
     async logout(req, res) {
         try {
             res.clearCookie('updatetoken', {
-                path: '/api/auth.js/upd_token'
+                path: '/api/auth/upd_token'
             })
 
             return res.json({msg: 'Signed out'})
@@ -100,7 +100,7 @@ class authController {
     async getAccessToken(req, res) {
         try {
             const updToken = req.cookies.updatetoken
-            if (!updToken) return res.status(400).json({msg: 'You have to Sign in'})
+            if (!updToken) return res.status(400).json({msg: 'You have to Sign in!'})
 
             jwt.verify(updToken, process.env.UPDATE_TOKEN, async (err, result) => {
                 if (err) return res.status(400).json({msg: 'You have to Sign in'})
@@ -115,7 +115,7 @@ class authController {
 
                 res.cookie('updatetoken', updateToken, {
                     httpOnly: true,
-                    path: '/api/auth.js/upd_token',
+                    path: '/api/auth/upd_token',
                     maxAge: 60 * 60 * 24 * 30 * 1000
                 })
 

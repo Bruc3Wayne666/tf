@@ -3,6 +3,8 @@ import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import classes from "../Info/Info.module.css";
 import {getProfileUsers} from "../../redux/actions/profileAction";
+import EditProfile from "../EditProfile/EditProfile";
+import FollowBtn from "../FollowBtn/FollowBtn";
 
 const Info = () => {
     const {id} = useParams()
@@ -10,6 +12,7 @@ const Info = () => {
     const {authReducer: auth, profileReducer: profile} = useSelector(state => state)
 
     const [userData, setUserData] = useState([])
+    const [onEdit, setOnEdit] = useState(false)
 
     useEffect(() => {
         if (id === auth.user._id) {
@@ -29,7 +32,12 @@ const Info = () => {
                     <div className={classes.infoContent}>
                         <div className={classes.infoContentTitle}>
                             <h2>{user.username}</h2>
-                            <button className='btn btn-outline-info'>Edit</button>
+                            {
+                                user._id === auth.user._id
+                                    ? <button onClick={() => setOnEdit(true)}
+                                              className='btn btn-outline-info'>Edit</button>
+                                    : <FollowBtn/>
+                            }
                         </div>
                         <div>
                             <span>
@@ -40,11 +48,13 @@ const Info = () => {
                             </span>
                         </div>
                         <h6>{user.fullName}</h6>
+                        <p>{user.number}</p>
                         <p>{user.address}</p>
                         <p>{user.email}</p>
                         <a target={'_blank'} href={user.socialNetwork} rel={'noreferrer'}>{user.socialNetwork}</a>
                         <p>{user.about}</p>
                     </div>
+                    {onEdit && <EditProfile user={user} setOnEdit={setOnEdit}/>}
                 </div>
             ))}
         </div>

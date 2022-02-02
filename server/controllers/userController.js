@@ -24,6 +24,21 @@ class userController {
             return res.status(500).json({msg: err.message})
         }
     }
+
+    async editUser(req, res){
+        try {
+            const {_id} = req.user
+            const {profileImage, fullName, number, location, about, socialNetwork, gender} = req.body
+            if (!fullName) return res.status(400).json({msg: 'Add your full name'})
+            await User.findOneAndUpdate({_id: _id}, {
+                profileImage, fullName, number, location, about, socialNetwork, gender
+            })
+
+            res.json({msg: 'User has been updated!'})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    }
 }
 
 module.exports = new userController()

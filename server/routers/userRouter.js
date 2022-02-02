@@ -5,6 +5,6 @@ const userController = require('../controllers/userController')
 
 router.get('/search', auth, userController.searchUser)
 router.get('/:id', auth, userController.getUser)
-
+router.patch('/', auth, userController.editUser)
 
 module.exports = router

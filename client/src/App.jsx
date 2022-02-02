@@ -14,6 +14,7 @@ import PrivateRouter from "./customRouter/PrivateRouter";
 
 function App() {
     const {authReducer: auth} = useSelector(state => state)
+    // const accessToken = localStorage.getItem('accessToken')
     const dispatch = useDispatch()
 
     useEffect(() => {

@@ -12,6 +12,7 @@ export const login = data => async dispatch => {
                 user: res.user
             }
         })
+        // localStorage.setItem('accessToken', res.accessToken)
         localStorage.setItem('firstLogin', 'true')
         dispatch({type: TYPES.ALERT_ACTION, payload: {success: res.msg}})
     } catch (err) {
@@ -32,6 +33,7 @@ export const register = data => async dispatch => {
                 user: res.user
             }
         })
+        // localStorage.setItem('accessToken', res.accessToken)
         localStorage.setItem('firstLogin', 'true')
         dispatch({type: TYPES.ALERT_ACTION, payload: {success: res.msg}})
     } catch (err) {
@@ -41,6 +43,7 @@ export const register = data => async dispatch => {
 
 export const logout = () => async dispatch => {
     try {
+        // localStorage.removeItem('accessToken')
         localStorage.removeItem('firstLogin')
         dispatch({type: TYPES.ALERT_ACTION, payload: {loading: true}})
         await postDataAPI('auth/logout')
@@ -62,6 +65,7 @@ export const refreshToken = () => async dispatch => {
                     user: res.user
                 }
             })
+            // localStorage.setItem('accessToken', res.accessToken)
             dispatch({type: TYPES.ALERT_ACTION, payload: {}})
         } catch (err) {
             dispatch({type: TYPES.ALERT_ACTION, payload: {error: err.response.data.msg}})
