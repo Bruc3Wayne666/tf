@@ -5,6 +5,7 @@ import classes from "../Info/Info.module.css";
 import {getProfileUsers} from "../../redux/actions/profileAction";
 import EditProfile from "../EditProfile/EditProfile";
 import FollowBtn from "../FollowBtn/FollowBtn";
+import {Followers, Following} from "./Follows";
 
 const Info = () => {
     const {id} = useParams()
@@ -14,14 +15,20 @@ const Info = () => {
     const [userData, setUserData] = useState([])
     const [onEdit, setOnEdit] = useState(false)
 
+    const [showFollowers, setShowFollowers] = useState(false)
+    const [showFollowing, setShowFollowing] = useState(false)
+
     useEffect(() => {
         if (id === auth.user._id) {
+            console.log(auth.user)
             setUserData([auth.user])
         } else {
             dispatch(getProfileUsers({users: profile.users, id, auth}))
             const newData = profile.users.filter(user => user._id === id)
+            console.log(newData)
             setUserData(newData)
         }
+        // console.log(userData)
     }, [id, auth, dispatch, profile.users])
 
     return (
@@ -36,14 +43,14 @@ const Info = () => {
                                 user._id === auth.user._id
                                     ? <button onClick={() => setOnEdit(true)}
                                               className='btn btn-outline-info'>Edit</button>
-                                    : <FollowBtn/>
+                                    : <FollowBtn user={user}/>
                             }
                         </div>
                         <div>
-                            <span>
+                            <span onClick={() => setShowFollowers(true)}>
                                 {user.followers.length} followers
                             </span>
-                            <span>
+                            <span onClick={() => setShowFollowing(true)}>
                                 {user.following.length} following
                             </span>
                         </div>
@@ -55,6 +62,18 @@ const Info = () => {
                         <p>{user.about}</p>
                     </div>
                     {onEdit && <EditProfile user={user} setOnEdit={setOnEdit}/>}
+                    {
+                        showFollowers && <Followers
+                            users={user.followers}
+                            setShowFollowers={setShowFollowers}
+                        />
+                    }
+                    {
+                        showFollowing && <Following
+                            users={user.following}
+                            setShowFollowing={setShowFollowing}
+                        />
+                    }
                 </div>
             ))}
         </div>

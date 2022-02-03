@@ -1,0 +1,23 @@
+.supperAvatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.bigAvatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.mediumAvatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.smallAvatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+}
